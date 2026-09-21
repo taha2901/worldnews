@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:worldnews/core/constants/app_colors.dart';
 
-class CategoryChips extends StatefulWidget {
-  const CategoryChips({super.key});
+class CategoryChips extends StatelessWidget {
+  const CategoryChips({
+    super.key,
+    required this.selectedCategory,
+    required this.onCategorySelected,
+  });
 
-  @override
-  State<CategoryChips> createState() => _CategoryChipsState();
-}
+  final String selectedCategory;
+  final ValueChanged<String> onCategorySelected;
 
-class _CategoryChipsState extends State<CategoryChips> {
-  static const _categories = [
-    'All',
-    'World',
-    'Technology',
-    'Business',
-    'Sports',
-    'Health',
+  static const List<_CategoryItem> _categories = [
+    _CategoryItem(label: 'All', value: 'general'),
+    _CategoryItem(label: 'World', value: 'world'),
+    _CategoryItem(label: 'Technology', value: 'technology'),
+    _CategoryItem(label: 'Business', value: 'business'),
+    _CategoryItem(label: 'Sports', value: 'sports'),
+    _CategoryItem(label: 'Health', value: 'health'),
   ];
-
-  int _selected = 0;
 
   @override
   Widget build(BuildContext context) {
+    final selectedIndex = _categories.indexWhere(
+      (item) => item.value == selectedCategory,
+    );
+    final currentIndex = selectedIndex == -1 ? 0 : selectedIndex;
+
     return SizedBox(
       height: 60,
       child: ListView.separated(
@@ -30,13 +35,20 @@ class _CategoryChipsState extends State<CategoryChips> {
         itemCount: _categories.length,
         separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) => CategoryChip(
-          label: _categories[index],
-          selected: index == _selected,
-          onTap: () => setState(() => _selected = index),
+          label: _categories[index].label,
+          selected: index == currentIndex,
+          onTap: () => onCategorySelected(_categories[index].value),
         ),
       ),
     );
   }
+}
+
+class _CategoryItem {
+  const _CategoryItem({required this.label, required this.value});
+
+  final String label;
+  final String value;
 }
 
 class CategoryChip extends StatelessWidget {

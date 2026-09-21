@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worldnews/core/constants/app_colors.dart';
 import 'package:worldnews/core/constants/format_date.dart';
-import 'package:worldnews/features/home/data/atricle_model.dart';
+import 'package:worldnews/features/home/data/models/atricle_model.dart';
 
 class ArticleBody extends StatelessWidget {
   const ArticleBody({super.key, required this.article});
