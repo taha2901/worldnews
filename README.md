@@ -1,17 +1,61 @@
-# worldnews
+# WorldNews
 
-A new Flutter project.
+A Flutter-based news application designed to showcase a modern mobile UI, authentication flow, and clean architecture for news browsing.
 
-## Getting Started
+## Project Overview
 
-This project is a starting point for a Flutter application.
+This project was built as a full mobile app prototype for a news platform. The implementation includes:
 
-A few resources to get you started if this is your first Flutter project:
+- Login and authentication flow using Firebase Auth
+- Home screen for browsing news content
+- Search screen for article discovery
+- Profile screen
+- Modern dark-themed UI
+- App icon and splash screen configuration for Android and iOS compatibility
+- Flutter project structure with reusable architecture patterns
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Design Process
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app design was first created in Figma as a visual concept and then translated into a Flutter implementation to match the intended product look and feel.
+
+Figma Design:
+
+[View Figma Design](https://www.figma.com/design/wcMQKSdd9GypdrsPpOkhoJ/Untitled?node-id=111-401&t=onTabyuWvMIyUoZ4-0)
+
+## App Delivery
+
+APK Build:
+
+[Download APK](https://drive.google.com/file/d/1iJIj8wtRGuZ_syYWZnzIxOqn9TNoNc5E/view?usp=drivesdk)
+
+## Tech Stack
+
+- Flutter
+- Dart
+- Firebase Authentication
+- Firebase Core
+- Bloc State Management
+- Material 3 UI
+
+## Features Implemented
+
+- User login flow
+- App navigation with bottom navigation bar
+- News feed layout
+- Search interface
+- Profile screen
+- Custom branding elements (app icon and splash screen)
+
+## Screenshots
+
+### Login
+
+![Login Screen](assets/screen_shots/login_screen.jpg)
+
+### Home / Top Stories
+
+![Home Screen](assets/screen_shots/home_screen.jpg)
+
+### Search
+
+![Search Screen](assets/screen_shots/search_screen.jpg)
