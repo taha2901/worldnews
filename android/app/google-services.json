@@ -12,7 +12,12 @@
           "package_name": "com.example.task_project"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "311839308759-9e4b7pp78m3dkeakbdpu0s402cr50l12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDXQgoKLTV6enqXrIL9Fi5kagv3OObYEKk"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311839308759-9e4b7pp78m3dkeakbdpu0s402cr50l12.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "311839308759-3nk754f8s1gr0e1j1auphpb7jbqjs10q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskProject"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,20 @@
           "package_name": "com.example.worldnews"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "311839308759-8m1871oj8b4uo41u75uedpagua0qtshf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.worldnews",
+            "certificate_hash": "50159d9e31719e469c9421bfbc4e3de4c3d2d119"
+          }
+        },
+        {
+          "client_id": "311839308759-9e4b7pp78m3dkeakbdpu0s402cr50l12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDXQgoKLTV6enqXrIL9Fi5kagv3OObYEKk"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311839308759-9e4b7pp78m3dkeakbdpu0s402cr50l12.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "311839308759-3nk754f8s1gr0e1j1auphpb7jbqjs10q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskProject"
+              }
+            }
+          ]
         }
       }
     }

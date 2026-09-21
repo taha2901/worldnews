@@ -72,6 +72,22 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> signInWithGoogle() async {
+    emit(const AuthLoading());
+
+    try {
+      final user = (await _authRepository.signInWithGoogle()).user;
+      _safeEmit(user != null ? AuthAuthenticated(user) : const AuthUnauthenticated());
+    } on FirebaseAuthException catch (error) {
+      _safeEmit(AuthFailure(error.message ?? 'Google sign-in failed'));
+    } catch (error) {
+      final message = error.toString();
+      _safeEmit(AuthFailure(message.contains('sign_in_canceled')
+          ? 'Google sign-in was canceled.'
+          : message));
+    }
+  }
+
   Future<void> logout() async {
     _safeEmit(const AuthLoading());
 

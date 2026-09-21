@@ -17,7 +17,15 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const NewsApp());
+  final authRepository = AuthRepository();
+  await authRepository.initializeGoogleSignIn();
+
+  runApp(
+    BlocProvider(
+      create: (_) => AuthCubit(authRepository: authRepository),
+      child: const NewsApp(),
+    ),
+  );
 }
 
 class NewsApp extends StatelessWidget {
@@ -25,17 +33,14 @@ class NewsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AuthCubit(authRepository: AuthRepository()),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'News App',
-        theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.background,
-          useMaterial3: true,
-        ),
-        home: const AppShell(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'News App',
+      theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.background,
+        useMaterial3: true,
       ),
+      home: const AppShell(),
     );
   }
 }

@@ -7,6 +7,7 @@ A Flutter-based news application designed to showcase a modern mobile UI, authen
 This project was built as a full mobile app prototype for a news platform. The implementation includes:
 
 - Login and authentication flow using Firebase Auth
+- Google Sign-In with Firebase Authentication
 - Home screen for browsing news content
 - Search screen for article discovery
 - Profile screen
@@ -39,12 +40,31 @@ APK Build:
 
 ## Features Implemented
 
-- User login flow
+- Email/password login and registration
+- Google Sign-In authentication
 - App navigation with bottom navigation bar
 - News feed layout
 - Search interface
 - Profile screen
 - Custom branding elements (app icon and splash screen)
+
+## Google Sign-In Setup
+
+To enable Google login in Firebase:
+
+1. Open your Firebase project.
+2. Go to Authentication > Sign-in method.
+3. Enable Google.
+4. Add your Android app package name and SHA-1 certificate.
+5. Download the updated google-services.json file and replace the existing one in android/app/.
+6. Run:
+
+```bash
+flutter pub get
+flutter run
+```
+
+Note: Google Sign-In also requires the correct Android package name and SHA certificate configuration in Firebase.
 
 ## Screenshots
 

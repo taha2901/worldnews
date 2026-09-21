@@ -153,7 +153,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(height: 22),
                         AuthSocialButton(
                           label: 'Sign up with Google',
-                          onPressed: () {},
+                          onPressed: isLoading
+                              ? null
+                              : () => context.read<AuthCubit>().signInWithGoogle(),
                         ),
                         const SizedBox(height: 24),
                         AuthFooterLink(

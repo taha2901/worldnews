@@ -145,7 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 22),
                         AuthSocialButton(
                           label: 'Continue with Google',
-                          onPressed: () {},
+                          onPressed: isLoading
+                              ? null
+                              : () => context.read<AuthCubit>().signInWithGoogle(),
                         ),
                         const SizedBox(height: 24),
                         AuthFooterLink(
