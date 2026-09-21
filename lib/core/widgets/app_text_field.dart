@@ -10,6 +10,7 @@ class AppTextField extends StatefulWidget {
     this.isPassword = false,
     this.keyboardType,
     this.textInputAction,
+    this.controller,
   });
 
   final String label;
@@ -18,6 +19,7 @@ class AppTextField extends StatefulWidget {
   final bool isPassword;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final TextEditingController? controller;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -25,6 +27,7 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   bool _obscure = true;
+  late final TextEditingController _controller = widget.controller ?? TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class _AppTextFieldState extends State<AppTextField> {
         ),
         const SizedBox(height: 8),
         TextField(
+          controller: _controller,
           obscureText: widget.isPassword && _obscure,
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction,

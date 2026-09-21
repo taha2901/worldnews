@@ -1,11 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldnews/core/constants/app_colors.dart';
+import 'package:worldnews/features/auth/data/auth_repo.dart';
+import 'package:worldnews/features/auth/presentaion/cubit/auth_cubit.dart';
+import 'package:worldnews/features/auth/presentaion/cubit/auth_state.dart';
 import 'package:worldnews/features/auth/presentaion/pages/login_page.dart';
 import 'package:worldnews/features/home/presentation/pages/home_page.dart';
 import 'package:worldnews/features/profile/presentation/pages/profile_page.dart';
 import 'package:worldnews/features/search/presentation/pages/search_page.dart';
+import 'package:worldnews/firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const NewsApp());
 }
 
@@ -14,15 +25,17 @@ class NewsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'News App',
-      theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.accent),
-        scaffoldBackgroundColor: AppColors.background,
-        useMaterial3: true,
+    return BlocProvider(
+      create: (_) => AuthCubit(authRepository: AuthRepository()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'News App',
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.background,
+          useMaterial3: true,
+        ),
+        home: const AppShell(),
       ),
-      home: const AppShell(),
     );
   }
 }
@@ -32,7 +45,15 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginPage();
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthAuthenticated) {
+          return const MainNavigationPage();
+        }
+
+        return const LoginPage();
+      },
+    );
   }
 }
 
