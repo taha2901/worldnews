@@ -12,12 +12,16 @@ class NewsCubit extends Cubit<NewsState> {
   Future<void> fetchTopHeadlines({String? category}) async {
     final selectedCategory = category ?? state.selectedCategory;
 
-    emit(NewsLoading(selectedCategory: selectedCategory));
+    if (!isClosed) {
+      emit(NewsLoading(selectedCategory: selectedCategory));
+    }
 
     final result = await _repository.fetchTopHeadlines(
       country: 'us',
       category: selectedCategory,
     );
+
+    if (isClosed) return;
 
     if (result.isSuccess && result.data != null) {
       if (result.data!.isEmpty) {
@@ -25,17 +29,21 @@ class NewsCubit extends Cubit<NewsState> {
         return;
       }
 
-      emit(NewsSuccess(
-        articles: result.data!,
-        selectedCategory: selectedCategory,
-      ));
+      emit(
+        NewsSuccess(
+          articles: result.data!,
+          selectedCategory: selectedCategory,
+        ),
+      );
       return;
     }
 
-    emit(NewsFailure(
-      message: result.errorMessage ?? 'Unable to load headlines.',
-      selectedCategory: selectedCategory,
-    ));
+    emit(
+      NewsFailure(
+        message: result.errorMessage ?? 'Unable to load headlines.',
+        selectedCategory: selectedCategory,
+      ),
+    );
   }
 
   Future<void> selectCategory(String category) async {

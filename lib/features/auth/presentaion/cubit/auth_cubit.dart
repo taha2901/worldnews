@@ -21,9 +21,15 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepository _authRepository;
   StreamSubscription<User?>? _authSubscription;
 
+  void _safeEmit(AuthState newState) {
+    if (!isClosed) {
+      emit(newState);
+    }
+  }
+
   Future<void> checkAuth() async {
     final user = _authRepository.currentUser;
-    emit(user != null ? AuthAuthenticated(user) : const AuthUnauthenticated());
+    _safeEmit(user != null ? AuthAuthenticated(user) : const AuthUnauthenticated());
   }
 
   Future<void> login({
@@ -38,11 +44,11 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
       )).user;
 
-      emit(user != null ? AuthAuthenticated(user) : const AuthUnauthenticated());
+      _safeEmit(user != null ? AuthAuthenticated(user) : const AuthUnauthenticated());
     } on FirebaseAuthException catch (error) {
-      emit(AuthFailure(error.message ?? 'Login failed'));
+      _safeEmit(AuthFailure(error.message ?? 'Login failed'));
     } catch (error) {
-      emit(AuthFailure(error.toString()));
+      _safeEmit(AuthFailure(error.toString()));
     }
   }
 
@@ -58,22 +64,22 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
       )).user;
 
-      emit(user != null ? AuthAuthenticated(user) : const AuthUnauthenticated());
+      _safeEmit(user != null ? AuthAuthenticated(user) : const AuthUnauthenticated());
     } on FirebaseAuthException catch (error) {
-      emit(AuthFailure(error.message ?? 'Registration failed'));
+      _safeEmit(AuthFailure(error.message ?? 'Registration failed'));
     } catch (error) {
-      emit(AuthFailure(error.toString()));
+      _safeEmit(AuthFailure(error.toString()));
     }
   }
 
   Future<void> logout() async {
-    emit(const AuthLoading());
+    _safeEmit(const AuthLoading());
 
     try {
       await _authRepository.signOut();
-      emit(const AuthUnauthenticated());
+      _safeEmit(const AuthUnauthenticated());
     } catch (error) {
-      emit(AuthFailure(error.toString()));
+      _safeEmit(AuthFailure(error.toString()));
     }
   }
 

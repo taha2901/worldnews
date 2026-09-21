@@ -9,29 +9,37 @@ class SearchCubit extends Cubit<SearchState> {
 
   final NewsRepository _repository;
 
+  void _safeEmit(SearchState newState) {
+    if (!isClosed) {
+      emit(newState);
+    }
+  }
+
   Future<void> search(String query) async {
     final trimmed = query.trim();
 
     if (trimmed.isEmpty) {
-      emit(const SearchInitial());
+      _safeEmit(const SearchInitial());
       return;
     }
 
-    emit(SearchLoading(query: trimmed));
+    _safeEmit(SearchLoading(query: trimmed));
 
     final result = await _repository.searchArticles(query: trimmed);
 
+    if (isClosed) return;
+
     if (result.isSuccess && result.data != null) {
       if (result.data!.isEmpty) {
-        emit(SearchEmpty(query: trimmed));
+        _safeEmit(SearchEmpty(query: trimmed));
         return;
       }
 
-      emit(SearchSuccess(query: trimmed, articles: result.data!));
+      _safeEmit(SearchSuccess(query: trimmed, articles: result.data!));
       return;
     }
 
-    emit(
+    _safeEmit(
       SearchFailure(
         query: trimmed,
         message: result.errorMessage ?? 'Something went wrong while searching.',
